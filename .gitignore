@@ -1,1 +1,9 @@
-.s5cfg
+#Ingnore everything
+*
+
+#...but:
+!Cloudmasking_tests_Phidown.ipynb
+!S2_workflow_1.ipynb
+!S2_workflow_1_omc.ipynb
+!Readme.md
+
