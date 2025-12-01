@@ -14,9 +14,9 @@ from rasterio.enums import Resampling
 from shapely.geometry import box, shape
 from shapely.ops import transform as shapely_transform
 
+BAND_ORDER = ["B02_10m", "B03_10m", "B04_10m", "B08_10m", "B11_20m", "B12_20m"]
+BAND_LABELS = ["Blue", "Green", "Red", "NIR", "SWIR1", "SWIR2"]
 
-BAND_ORDER  = ["B02_10m","B03_10m","B04_10m","B08_10m","B11_20m","B12_20m"]
-BAND_LABELS = ["Blue","Green","Red","NIR","SWIR1","SWIR2"]
 
 def search_s2_stac(
     start_date: str, end_date: str, grid: str, max_cloud_cover: int = 100
@@ -104,7 +104,13 @@ def projected_intersection_ratio(item_geom, aoi_bounds, epsg_out):
 
 
 def process_year(
-    year: int, grid: str, max_cloud: int, bbox_ll: tuple|list, band_order: list, out_dir: str|Path, month_start_end: tuple|list
+    year: int,
+    grid: str,
+    max_cloud: int,
+    bbox_ll: tuple | list,
+    band_order: list,
+    out_dir: str | Path,
+    month_start_end: tuple | list,
 ):
     print(f"\n==== Year {year} | grid={grid} | clouds≤{max_cloud}% ====")
     start_date = f"{year}-{month_start_end[0]}"
