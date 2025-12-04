@@ -122,11 +122,12 @@ def main(
             band_order=BAND_ORDER,
             out_dir=out_dir,
             month_start_end=MONTH_START_END,
+            n_parallel=n_parallel,
         )
         return yr, n
 
     all_counts = {}
-    with ThreadPoolExecutor(max_workers=n_parallel) as executor:
+    with ThreadPoolExecutor(max_workers=1) as executor:
         futures = {executor.submit(download_year_wrapper, yr): yr for yr in YEARS}
 
         for future in as_completed(futures):
