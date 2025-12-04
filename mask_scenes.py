@@ -11,7 +11,7 @@ app = typer.Typer(help="Apply cloud masks to Sentinel-2 scenes")
 @app.command()
 def main(
     input_dir: Path = typer.Option(
-        Path("data/coverage70/2025/scenes_raw/2025"),
+        Path("data/coverage70/scenes_raw/2025"),
         "--input-dir",
         "-i",
         help="Directory with raw scene .tif files",
