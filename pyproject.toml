@@ -1,0 +1,27 @@
+[project]
+name = "s2-tcvis"
+version = "0.0.3"
+description = "Repository to create Sentinel-2 time series visualizations"
+readme = "README.md"
+authors = [
+    { name = "Sina Pohlabeln" },
+    { name = "Ingmar Nitze" },
+]
+requires-python = ">=3.12"
+dependencies = [
+    "dask>=2025.11.0",
+    "distributed>=2025.11.0",
+    "ipykernel>=7.1.0",
+    "ipywidgets>=8.1.8",
+    "jupyterlab>=4.5.0",
+    "numpy>=2.3.5",
+    "omnicloudmask>=1.6.0",
+    "pystac>=1.14.1",
+    "pystac-client>=0.9.0",
+    "rasterio>=1.4.3",
+    "rioxarray>=0.20.0",
+    "shapely>=2.1.2",
+    "tqdm>=4.67.1",
+    "typer>=0.20.0",
+    "xarray>=2025.11.0",
+]
