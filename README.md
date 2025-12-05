@@ -29,6 +29,18 @@ S2_workflow_1_omc.ipynb: TCVIS trend calculations with omnicloudmask integrated
 `uv run mask_scenes.py --input-dir data/coverage70/
 scenes_raw/2017 --output-dir data/coverage70/scenes_masked/2017 --device cuda:2`
 
+##### All years
+* looks for files recursively and uses same relative file structure
+* data
+  * coverage70
+    * 2017
+    * 2018
+    * 2019
+    * ...
+  
+`uv run mask_scenes.py --input-dir data/coverage70/
+scenes_raw --output-dir data/coverage70/scenes_masked --device cuda:2`
+
 #### Create mosaics
 
 

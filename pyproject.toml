@@ -1,6 +1,6 @@
 [project]
 name = "s2-tcvis"
-version = "0.0.3"
+version = "0.0.4"
 description = "Repository to create Sentinel-2 time series visualizations"
 readme = "README.md"
 authors = [
