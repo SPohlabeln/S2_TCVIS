@@ -3,7 +3,7 @@ import dask
 from pathlib import Path
 import rioxarray
 import xarray as xr
-from utils.spatial.raster import da_to_uint16, raster_kwargs, create_median_mosaic, save_to_to_tif
+from utils.spatial.raster import da_to_uint16, raster_kwargs, create_median_mosaic, save_da_to_tif
 from utils.mask import BAND_LABELS
 import typer
 
@@ -76,7 +76,7 @@ def main(
             chunksize=chunksize,
         )
         if median_u16 is not None:
-            save_to_to_tif(year, median_u16, out_dir)
+            save_da_to_tif(year, median_u16, out_dir)
             results[year] = "✅"
         else:
             results[year] = "⏭️/❌"
