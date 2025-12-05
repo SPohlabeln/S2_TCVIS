@@ -1,6 +1,6 @@
 [project]
 name = "s2-tcvis"
-version = "0.0.2"
+version = "0.0.3"
 description = "Repository to create Sentinel-2 time series visualizations"
 readme = "README.md"
 authors = [
@@ -10,6 +10,7 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "dask>=2025.11.0",
+    "distributed>=2025.11.0",
     "ipykernel>=7.1.0",
     "ipywidgets>=8.1.8",
     "jupyterlab>=4.5.0",
