@@ -50,11 +50,11 @@ scenes_raw --output-dir data/coverage70/scenes_masked --device cuda:2`
 
 #### Create mosaics
 
-`uv run medians.py --year-start 2017  --year-end 2025 --tif-dir data/coverage70/scenes_masked --output-dir data/coverage70/medians`
+`uv run calculate_medians.py --year-start 2017  --year-end 2025 --tif-dir data/coverage70/scenes_masked --output-dir data/coverage70/medians`
 
 #### Calculate Indices
 
-`uv run medians.py --median-dir data/coverage70/medians --output-dir data/coverage70/tc`
+`uv run calculate_tc.py --median-dir data/coverage70/medians --output-dir data/coverage70/tc`
 
 #### Calculate Trends
 
