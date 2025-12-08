@@ -1,4 +1,3 @@
-
 import warnings
 from pathlib import Path
 
@@ -26,9 +25,9 @@ def main(
         "-m",
         help="Directory with yearly median mosaics (median_{year}.tif)",
     ),
-    tc_dir: Path = typer.Option(
+    output_dir: Path = typer.Option(
         Path("data/coverage70/tc"),
-        "--tc-dir",
+        "--output-dir",
         "-o",
         help="Output directory for tasseled-cap mosaics",
     ),
@@ -43,19 +42,18 @@ def main(
 ):
     """Compute tasseled-cap (TCB/TCG/TCW) mosaics from yearly median rasters."""
     typer.echo(f"📍 Median dir: {median_dir}")
-    typer.echo(f"📍 Output dir: {tc_dir}")
+    typer.echo(f"📍 Output dir: {output_dir}")
     typer.echo(f"📅 Years: {years_start} .. {years_end}")
-    tc_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     # default chunking chosen internally (no CLI argument)
     chunks = {"x": 1024, "y": 1024}
 
     years = list(range(years_start, years_end + 1))
 
-
     for year in years:
         in_file = Path(median_dir) / f"median_{year}.tif"
-        out_file = Path(tc_dir) / f"tc_median_{year}.tif"
+        out_file = Path(output_dir) / f"tc_median_{year}.tif"
 
         if not in_file.exists():
             typer.secho(f"❌ Missing median mosaic for {year}: {in_file}", fg="yellow")

@@ -22,15 +22,11 @@ def main(
         "-o",
         help="Directory to write masked scenes",
     ),
-    pattern: str = typer.Option(
-        "*.tif", "--pattern", "-p", help="Glob pattern for input files"
-    ),
+    pattern: str = typer.Option("*.tif", "--pattern", "-p", help="Glob pattern for input files"),
     device: str = typer.Option(
         "cuda:0", "--device", "-d", help="Device for OMC inference (e.g. cuda:0 or cpu)"
     ),
-    overwrite: bool = typer.Option(
-        False, "--overwrite", help="Overwrite existing masked files"
-    ),
+    overwrite: bool = typer.Option(False, "--overwrite", help="Overwrite existing masked files"),
 ):
     """Mask scenes in INPUT_DIR and write results to OUTPUT_DIR."""
     if not input_dir.exists() or not input_dir.is_dir():

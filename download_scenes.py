@@ -14,18 +14,12 @@ app = typer.Typer()
 
 @app.command()
 def main(
-    years_start: int = typer.Option(
-        2024, "--years-start", "-ys", help="Start year for download"
-    ),
-    years_end: int = typer.Option(
-        2025, "--years-end", "-ye", help="End year for download"
-    ),
+    years_start: int = typer.Option(2024, "--years-start", "-ys", help="Start year for download"),
+    years_end: int = typer.Option(2025, "--years-end", "-ye", help="End year for download"),
     month_start: str = typer.Option(
         "08-01", "--month-start", "-ms", help="Month start date (MM-DD)"
     ),
-    month_end: str = typer.Option(
-        "08-31", "--month-end", "-me", help="Month end date (MM-DD)"
-    ),
+    month_end: str = typer.Option("08-31", "--month-end", "-me", help="Month end date (MM-DD)"),
     grid: str = typer.Option("MGRS-05WMU", "--grid", "-g", help="MGRS grid identifier"),
     max_cloud_cover: int = typer.Option(
         70, "--max-cloud-cover", "-cc", help="Maximum cloud cover percentage"
@@ -50,24 +44,20 @@ def main(
     ),
     aws_access_key: str = typer.Option(None, "--aws-access-key", help="AWS access key"),
     aws_secret_key: str = typer.Option(None, "--aws-secret-key", help="AWS secret key"),
-    aws_region: str = typer.Option(
-        "eu-central-1", "--aws-region", "-ar", help="AWS region"
-    ),
+    aws_region: str = typer.Option("eu-central-1", "--aws-region", "-ar", help="AWS region"),
     aws_endpoint: str = typer.Option(
         "eodata.dataspace.copernicus.eu",
         "--aws-endpoint",
         "-ae",
         help="AWS S3 endpoint",
     ),
-    n_parallel: int = typer.Option(
-        1, "--n-parallel", "-np", help="Number of parallel downloads"
-    ),
+    n_parallel: int = typer.Option(1, "--n-parallel", "-np", help="Number of parallel downloads"),
 ):
     """Download Sentinel-2 scenes with configurable parameters."""
 
-    YEARS = list(range(years_start, years_end + 1))
-    MONTH_START_END = (month_start, month_end)
-    BBOX_LL = (bbox_west, bbox_south, bbox_east, bbox_north)
+    years = list(range(years_start, years_end + 1))
+    month_start_end = (month_start, month_end)
+    bbox_ll = (bbox_west, bbox_south, bbox_east, bbox_north)
 
     # determine AWS credentials from args or environment
     provided_access = aws_access_key or os.environ.get("AWS_ACCESS_KEY_ID")
@@ -118,17 +108,17 @@ def main(
             yr,
             grid,
             max_cloud_cover,
-            bbox_ll=BBOX_LL,
+            bbox_ll=bbox_ll,
             band_order=BAND_ORDER,
             out_dir=out_dir,
-            month_start_end=MONTH_START_END,
+            month_start_end=month_start_end,
             n_parallel=n_parallel,
         )
         return yr, n
 
     all_counts = {}
     with ThreadPoolExecutor(max_workers=1) as executor:
-        futures = {executor.submit(download_year_wrapper, yr): yr for yr in YEARS}
+        futures = {executor.submit(download_year_wrapper, yr): yr for yr in years}
 
         for future in as_completed(futures):
             yr, n = future.result()
