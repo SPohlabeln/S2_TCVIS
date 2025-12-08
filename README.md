@@ -28,6 +28,10 @@ S2_workflow_1_omc.ipynb: TCVIS trend calculations with omnicloudmask integrated
 
 ##### running on cuda device (ca. 0:10 min per image)
 
+* use cuda or cpu
+  * cuda:0 or cuda (GPU 0)
+  * cuda:1 for specifying cuda device (here GPU 1)
+
 `uv run mask_scenes.py --input-dir data/coverage70/
 scenes_raw/2017 --output-dir data/coverage70/scenes_masked/2017 --device cuda:2`
 
@@ -46,8 +50,14 @@ scenes_raw --output-dir data/coverage70/scenes_masked --device cuda:2`
 
 #### Create mosaics
 
-`uv run medians.py --year-start 2017  --year-end 2025 --tif-dir data/coverage70/scenes_masked --output-dir data/coverage70/medians"`
+`uv run medians.py --year-start 2017  --year-end 2025 --tif-dir data/coverage70/scenes_masked --output-dir data/coverage70/medians`
 
 #### Calculate Indices
 
+`uv run medians.py --median-dir data/coverage70/medians --output-dir data/coverage70/tc`
+
 #### Calculate Trends
+
+* parallelized execution with dask
+
+`uv run calculate_trend.py --dask-n-workers 32 --dask-memory-limit "16GB" --dask-chunksize 256  --output-file data/coverage70/trends/trend.tif`

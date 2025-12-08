@@ -1,6 +1,6 @@
 [project]
 name = "s2-tcvis"
-version = "0.0.4"
+version = "0.1.0"
 description = "Repository to create Sentinel-2 time series visualizations"
 readme = "README.md"
 authors = [
@@ -9,6 +9,7 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "bokeh>=3.8.1",
     "dask>=2025.11.0",
     "distributed>=2025.11.0",
     "ipykernel>=7.1.0",
@@ -19,9 +20,41 @@ dependencies = [
     "pystac>=1.14.1",
     "pystac-client>=0.9.0",
     "rasterio>=1.4.3",
+    "rich>=14.2.0",
     "rioxarray>=0.20.0",
+    "ruff>=0.14.8",
     "shapely>=2.1.2",
     "tqdm>=4.67.1",
     "typer>=0.20.0",
     "xarray>=2025.11.0",
 ]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # Pyflakes
+    "I",    # isort (import sorting)
+    "N",    # pep8-naming
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["utils"]
+known-third-party = ["numpy", "xarray", "rasterio", "rioxarray", "typer", "dask"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+docstring-code-format = true
