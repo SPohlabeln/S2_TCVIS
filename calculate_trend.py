@@ -159,7 +159,6 @@ def main(
 
     trend_vis = trend.clip(-0.3, 0.3)
     trend_vis = ((trend_vis + 0.3) / 0.6 * 255).astype("uint8")
-    trend_vis.transpose("band", "y", "x").rio.to_raster("trend_visual_70_no2024.tif")
 
     # -----------------------------------------
     # 5. SAVE TO GEOTIFF

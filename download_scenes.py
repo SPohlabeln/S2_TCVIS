@@ -42,6 +42,7 @@ def main(
         "-o",
         help="Output directory",
     ),
+    coverage_threshold: float = typer.Option(0.1, "--coverage-threshold", "-ct", help="Minimum coverage for downloading a scene"),
     aws_access_key: str = typer.Option(None, "--aws-access-key", help="AWS access key"),
     aws_secret_key: str = typer.Option(None, "--aws-secret-key", help="AWS secret key"),
     aws_region: str = typer.Option("eu-central-1", "--aws-region", "-ar", help="AWS region"),
@@ -113,6 +114,7 @@ def main(
             out_dir=out_dir,
             month_start_end=month_start_end,
             n_parallel=n_parallel,
+            coverage_threshold=coverage_threshold,
         )
         return yr, n
 

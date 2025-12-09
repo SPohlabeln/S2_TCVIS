@@ -21,6 +21,7 @@ def download_year(
     out_dir: str | Path,
     month_start_end: tuple | list,
     n_parallel: int = 1,
+    coverage_threshold: float = 0.1,
 ):
     """
     Download and process all scenes for a given year.
@@ -68,7 +69,7 @@ def download_year(
         )
         print(f"   ℹ️ AOI intersection coverage: {coverage_ratio:.2%}")
 
-        if coverage_ratio < 0.4:
+        if coverage_ratio < coverage_threshold:
             print("   ⚠️ Scene skipped due to low AOI coverage.")
             return False
 
