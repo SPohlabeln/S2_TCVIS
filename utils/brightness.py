@@ -1,4 +1,4 @@
-
+import xarray as xr
 #---- Apply ice mask-------
 # masked_median = ice_mask(
 #     scene,
@@ -8,10 +8,10 @@
 
 
 def ice_mask(
-    scene,
-    thresholds=None,
-    band_names=("Band1", "Band2", "Band3")
-):
+    scene: xr.DataArray,
+    thresholds: float=None,
+    band_names: list|tuple=("Band1", "Band2", "Band3")
+) -> xr.DataArray:
     """
     Mask out pixels that are too bright in the specified bands
     (e.g., ice or snow). If all selected bands exceed their
