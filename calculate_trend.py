@@ -165,13 +165,13 @@ def main(
     # -----------------------------------------
     trend_vis.transpose("band", "y", "x").rio.to_raster(
         out_path,
-        driver="GTiff",
-        tiled=True,
+        driver="COG",
+        # tiled=True,
         compress="deflate",
         BIGTIFF="IF_SAFER",
-        predictor=2,
-        blockxsize=1024,
-        blockysize=1024,
+        # predictor=2,
+        # blockxsize=1024,
+        # blockysize=1024,
     )
 
     print("✅ Trend image saved successfully.")
