@@ -12,7 +12,7 @@ BAND_LABELS = ["Blue", "Green", "Red", "NIR", "SWIR1", "SWIR2"]
 
 
 def mask_scene(
-    input_image: Path | str, output_image: Path | str, omc_kwargs: dict = None
+    input_image: Path | str, output_image: Path | str, omc_kwargs: dict = None, brightness_mask: bool = True
 ):
     scene = rioxarray.open_rasterio(input_image)
 
@@ -52,8 +52,8 @@ def mask_scene(
     # return mask_da
 
     scene_masked = scene.where(mask_da)
-    
-    scene_masked = ice_mask(scene_masked)
+    if brightness_mask:
+        scene_masked = ice_mask(scene_masked, band_names=['Blue', 'Green', 'Red'])
 
     scene_u16 = (
         scene_masked.fillna(0).clip(0, 10000).astype("uint16").rio.write_nodata(0)

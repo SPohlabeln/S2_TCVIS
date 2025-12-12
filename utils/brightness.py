@@ -1,16 +1,10 @@
 import xarray as xr
-#---- Apply ice mask-------
-# masked_median = ice_mask(
-#     scene,
-#     threshold=None,
-#     band_names=(1, 2, 3),
-# )
 
 
 def ice_mask(
     scene: xr.DataArray,
-    thresholds: float=None,
-    band_names: list|tuple=("Band1", "Band2", "Band3")
+    thresholds: float = None,
+    band_names: list | tuple = ("Blue", "Green", "Red"),
 ) -> xr.DataArray:
     """
     Mask out pixels that are too bright in the specified bands
@@ -43,9 +37,9 @@ def ice_mask(
     # Default thresholds (sensible RGB defaults)
     if thresholds is None:
         thresholds = {
-            band_names[0]: 2500,   # e.g. Blue
-            band_names[1]: 2500,   # e.g. Green
-            band_names[2]: 2300,   # e.g. Red
+            band_names[0]: 2500,  # e.g. Blue
+            band_names[1]: 2500,  # e.g. Green
+            band_names[2]: 2300,  # e.g. Red
         }
 
     # Safety check
@@ -60,13 +54,12 @@ def ice_mask(
 
     # Apply band-specific thresholds
     ice_mask = (
-        (b1 > thresholds[band_names[0]]) &
-        (b2 > thresholds[band_names[1]]) &
-        (b3 > thresholds[band_names[2]])
+        (b1 > thresholds[band_names[0]])
+        & (b2 > thresholds[band_names[1]])
+        & (b3 > thresholds[band_names[2]])
     )
 
     # Invert mask: keep only non-ice pixels
     keep_mask = ~ice_mask
 
     return scene.where(keep_mask)
-
