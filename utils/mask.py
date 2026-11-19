@@ -4,6 +4,7 @@ import numpy as np
 import rioxarray
 import xarray as xr
 from omnicloudmask import predict_from_array
+from utils.brightness import ice_mask
 
 
 BAND_ORDER = ["B02_10m", "B03_10m", "B04_10m", "B08_10m", "B11_20m", "B12_20m"]
@@ -11,7 +12,7 @@ BAND_LABELS = ["Blue", "Green", "Red", "NIR", "SWIR1", "SWIR2"]
 
 
 def mask_scene(
-    input_image: Path | str, output_image: Path | str, omc_kwargs: dict = None
+    input_image: Path | str, output_image: Path | str, omc_kwargs: dict = None, brightness_mask: bool = True
 ):
     scene = rioxarray.open_rasterio(input_image)
 
@@ -51,6 +52,8 @@ def mask_scene(
     # return mask_da
 
     scene_masked = scene.where(mask_da)
+    if brightness_mask:
+        scene_masked = ice_mask(scene_masked, band_names=['Blue', 'Green', 'Red'])
 
     scene_u16 = (
         scene_masked.fillna(0).clip(0, 10000).astype("uint16").rio.write_nodata(0)
